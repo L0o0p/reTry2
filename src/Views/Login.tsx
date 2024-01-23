@@ -1,34 +1,36 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button,  Form, Input } from 'antd';
 
-const onFinish = (values: any) => {
-  console.log('Success:', values);
+const View = () => {
+
+// constructor(){
+//   super();
+//   this.state = {
+//     Usernam:"",
+//     password:"",
+//     repassword:"",
+//   }
+//   }
+
+
+// const handleChange=(e)=>{
+//   this.setState({
+//     username:e.target.value
+//   })
+// }
+
+
+// const onSubmit=()=>(
+//   // 禁用跳转：
+//   e.preventDefault(),
+// // 验证读取：
+//   console.log()
+//   )
+const handleSubmit = (e: { preventDefault: () => void; }) => {
+  e.preventDefault();
+  // 提交表单
+  console.log('Submitting form data:', FormData);
 };
-
-const onFinishFailed = (errorInfo: any) => {
-  console.log('Failed:', errorInfo);
-};
-
-constructor(){
-  super();
-  this.state = {
-    Usernam:"",
-    
-  }
-  }
-
-const handleChange=(e)=>{
-  this.setState({
-    username:e.target.value
-  })
-}
-
-const onSubmit=()=>(
-  // 禁用跳转：
-  e.preventDefault(),
-// 验证读取：
-  console.log()
-  )
 
 type FieldType = {
   username?: string;
@@ -37,7 +39,30 @@ type FieldType = {
   repassword?: string;
 };
 
-const View: React.FC = () => (
+
+
+  const onFinish = (values: any) => {
+    console.log('Success:', values);
+  };
+  
+  const onFinishFailed = (errorInfo: any) => {
+    console.log('Failed:', errorInfo);
+  };
+  const [FormData, setFormData] = useState({
+    username: '',
+    password: '',
+    repassword: '',
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prevData => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  return(
   <Form
     name="basic"
     labelCol={{ span: 8 }}
@@ -52,9 +77,9 @@ const View: React.FC = () => (
       label="Username"
       name="username"
       rules={[{ required: true, message: 'Please input your username!' }]}
-      onMetaChange={handleChange}
+      // onChange={handleChange}
     >
-      <Input />
+      <Input onChange={handleChange}/>
     </Form.Item>
 
     <Form.Item<FieldType>
@@ -62,7 +87,7 @@ const View: React.FC = () => (
       name="password"
       rules={[{ required: true, message: 'Please input your password!' }]}
     >
-      <Input.Password />
+      <Input.Password onChange={handleChange}/>
     </Form.Item>
 
     <Form.Item<FieldType>
@@ -70,16 +95,17 @@ const View: React.FC = () => (
       name="repassword"
       rules={[{ required: true, message: 'Please input your password again!' }]}
     >
-      <Input.Password />
+      <Input.Password onChange={handleChange}/>
     </Form.Item>
 
 
     <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-      <Button type="primary" htmlType="submit" onClick={onSubmit}>
+      <Button type="primary" htmlType="submit" onClick={handleSubmit}>
         Submit
       </Button>
     </Form.Item>
   </Form>
 );
+}
 
 export default View;
