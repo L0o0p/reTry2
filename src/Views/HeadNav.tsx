@@ -2,23 +2,24 @@ import React, { useState } from 'react';
 import {  MailOutlined, SettingOutlined } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
 import { Menu } from 'antd';
+import { useNavigate } from 'react-router-dom';
 
 const items: MenuProps['items'] = [
   {
     label: '导航页',
-    key: 'mail',
+    key: 'nav',
     icon: <MailOutlined />,
   },
 
   {
     label: '登录页',
-    key: 'SubMenu',
+    key: 'log',
     icon: <SettingOutlined />,
    
   },
   {
     label: '注册页',
-    key: 'SubMenu',
+    key: 'sig',
     icon: <SettingOutlined />,
    
   },
@@ -28,19 +29,23 @@ const items: MenuProps['items'] = [
         😀 跳转到antd
       </a>
     ),
-    key: 'alipay',
+    key: 'out',
   },
 ];
 
 const App: React.FC = () => {
-  const [current, setCurrent] = useState('mail');
+  const navigateTo = useNavigate()
+  const [current, setCurrent] = useState('nav');
 
-  const onClick: MenuProps['onClick'] = (e) => {
+  const menuClick: MenuProps['onClick'] = (e) => {
     console.log('click ', e);
     setCurrent(e.key);
+    console.log('惦记了', e.key)
+    navigateTo(e.key)
+    
   };
 
-  return <Menu onClick={onClick} selectedKeys={[current]} mode="horizontal" items={items} />;
+  return <Menu onClick={menuClick} selectedKeys={[current]} mode="horizontal" items={items} />;
 };
 
 export default App;
