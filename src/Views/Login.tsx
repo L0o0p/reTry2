@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Button, Form, Input } from 'antd';
 
 const View = () => {
@@ -57,7 +57,7 @@ const View = () => {
   });
 
   // 输入框onChange事件
-  const handleChange = (e) => {
+  const handleChange = (e: any) => {
     const { id, value } = e.target;
     setFormData(prevData => ({
       ...prevData,
