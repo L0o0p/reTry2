@@ -9,6 +9,27 @@ const onFinishFailed = (errorInfo: any) => {
   console.log('Failed:', errorInfo);
 };
 
+constructor(){
+  super();
+  this.state = {
+    Usernam:"",
+    
+  }
+  }
+
+const handleChange=(e)=>{
+  this.setState({
+    username:e.target.value
+  })
+}
+
+const onSubmit=()=>(
+  // 禁用跳转：
+  e.preventDefault(),
+// 验证读取：
+  console.log()
+  )
+
 type FieldType = {
   username?: string;
   password?: string;
@@ -31,6 +52,7 @@ const View: React.FC = () => (
       label="Username"
       name="username"
       rules={[{ required: true, message: 'Please input your username!' }]}
+      onMetaChange={handleChange}
     >
       <Input />
     </Form.Item>
@@ -53,7 +75,7 @@ const View: React.FC = () => (
 
 
     <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-      <Button type="primary" htmlType="submit">
+      <Button type="primary" htmlType="submit" onClick={onSubmit}>
         Submit
       </Button>
     </Form.Item>
